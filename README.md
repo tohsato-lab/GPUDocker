@@ -1,4 +1,4 @@
-# GPUDocker 書きかけ
+# GPUDocker
 
 # 参考
  - [Ascender](https://github.com/cvpaperchallenge/Ascender) ココにエラーの解決策が書いてあるかも
