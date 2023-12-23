@@ -17,12 +17,15 @@ $ git clone git@...
 $ cd GPUDocker
 ```
  6. dockerファイルを編集しよう
- + GPUDocker/environments/gpu/docker-compose.yaml の３箇所を編集しよう
+ + GPUDocker/environments/gpu/docker-compose.yaml の5箇所を編集しよう
 ```
  services:
   YourUserName: # ←ここを{あなたのユーザー名}にしよう
     runtime: nvidia
     container_name: contanor　# ←ここを{あなたのユーザー名}にしよう
+...
+        - UID=${HOST_UID-1000}    # $ id -u $USER  # 通所のターミナルで出てきた数字を打ち込む
+        - GID=${HOST_GID-1000}    # $ id -g $USER  # 通所のターミナルで出てきた数字を打ち込む
 ...
     ports:
         - hoge:hoge # ←カブらないようにしよう。特に同じユーザーネームのやつとはかぶらないように注意
