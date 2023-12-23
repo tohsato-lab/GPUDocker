@@ -35,19 +35,20 @@ $ docker compose up -d
 $ docker compose exec {あなたのユーザー名} bash
 ```
 
- 8. python3の環境を作ろう
+ 8. poetryの環境ファイルを作ろう
 ```shell
-challenger@153a9d49d0a3:~/ascender$ poetry init
+challenger@hogehoge:~/ascender$ poetry init
 
 This command will guide you through creating your pyproject.toml config.
 
 Package name [ascender]:  ←そのままEnter
 Version [0.1.0]:  ←そのままEnter
 Description []:  ←そのままEnter
-Author [None, n to skip]:  compbio ←好きな名前にしてこの記事では"compbio"
+Author [None, n to skip]: compbio ←ユーザー名を入れよう今回は"compbio"そのままEnter
 License []:  ←そのままEnter
-Compatible Python versions [^3.9]:  ←必要なpython3のバージョン。今回は"3.10"
-Would you like to define your main dependencies interactively? (yes/no) [yes] yes ←Yesと入力してEnter
+Compatible Python versions [^3.9]:  ←必要なPython3のバージョンを入れようデフォルトは3.9が入るよ
+
+Would you like to define your main dependencies interactively? (yes/no) [yes] 
 You can specify a package in the following forms:
   - A single name (requests): this will search for matches on PyPI
   - A name and a constraint (requests@^2.23.0)
@@ -57,32 +58,10 @@ You can specify a package in the following forms:
   - A directory (../my-package/)
   - A url (https://example.com/packages/my-package-0.1.0.tar.gz)
 
-Package to add or search for (leave blank to skip): numpy ←パーケージを入れます。一旦Numpyを入れてみる
-Found 20 packages matching numpy
-Showing the first 10 matches
+Package to add or search for (leave blank to skip): ←そのままEnter
 
-Enter package # to add, or the complete package name if it is not listed []:
- [ 0] numpy
- [ 1] numpy1
- [ 2] topas2numpy
- [ 3] numpy-serializer
- [ 4] mlphys-numpy
- [ 5] gdal2numpy
- [ 6] numpy-sugar
- [ 7] numpy-dataframe
- [ 8] numpy-ringbuffer
- [ 9] mapchete-numpy
- [ 10] 
- > 0　←NUmpyが複数見つかったので、ほしいやつを選ぶ。今回は0番目
-Enter the version constraint to require (or leave blank to use the latest version): 
-Using version ^1.26.2 for numpy
-
-Add a package (leave blank to skip):  ←そのままEnter
-
-Would you like to define your development dependencies interactively? (yes/no) [yes]  ←そのままEnter
-Package to add or search for (leave blank to skip):  ←そのままEnter
-
-Package to add or search for (leave blank to skip): 
+Would you like to define your development dependencies interactively? (yes/no) [yes] ←そのままEnter
+Package to add or search for (leave blank to skip): ←そのままEnter
 
 Generated file
 
@@ -94,8 +73,7 @@ authors = ["compbio"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.10"
-numpy = "^1.26.2"
+python = "^3.9"
 
 
 [build-system]
@@ -104,7 +82,18 @@ build-backend = "poetry.core.masonry.api"
 
 
 Do you confirm generation? (yes/no) [yes] ←そのままEnter
-
-
- 
 ```
+ 9. poetryの実行環境を作ろう
+```
+challenger@hogehoge:~/ascender$ poetry install --no-root
+```
+
+ 10. poetryに必要なpythonのパッケージを入れよう。たくさんあると思うが頑張って
+```
+challenger@hogehoge:~/ascender$ poetry add {必要なPythonのパッケージ名、例：numpy, pandas}
+```
+ 11. poetryを実行しよう
+```
+challenger@hogehoge:~/ascender$ poetry run python3 {python3のファイル、例：train.py, test.py}
+```
+
