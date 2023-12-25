@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  YourUserName: # ←ここを自分のユーザーネームにしよう
+  {ココをユーザー名にしよう}: # ←ここを自分のユーザーネームにしよう
     runtime: nvidia
     container_name: contanor
     environment:
