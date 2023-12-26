@@ -22,7 +22,7 @@ $ cd GPUDocker
  services:
   {あなたのユーザー名}: # ←ここを{あなたのユーザー名}にしよう
     runtime: nvidia
-    container_name: contanor　# ←ここを{あなたのユーザー名}にしよう
+    container_name:  {あなたのユーザー名}　# ←ここを{あなたのユーザー名}にしよう
 ...
     ports:
         - hoge:hoge # ←カブらないようにしよう。特に同じユーザーネームのやつとはかぶらないように注意
