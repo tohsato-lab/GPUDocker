@@ -19,3 +19,4 @@ services:
         - ../../:/home/challenger/ascender
     ports:
         - hoge:hoge # ←個々を株いらないようにしよう。特に同じユーザーネームのやつとはかぶらないように注意
+    shm_size: '32gb'
