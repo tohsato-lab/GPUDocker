@@ -17,15 +17,12 @@ $ git clone git@...
 $ cd GPUDocker
 ```
  6. dockerファイルを編集しよう
- + GPUDocker/environments/gpu/docker-compose.yaml の5箇所を編集しよう
+ + GPUDocker/environments/gpu/docker-compose.yaml の3箇所を編集しよう
 ```
  services:
-  YourUserName: # ←ここを{あなたのユーザー名}にしよう
+  {あなたのユーザー名}: # ←ここを{あなたのユーザー名}にしよう
     runtime: nvidia
     container_name: contanor　# ←ここを{あなたのユーザー名}にしよう
-...
-        - UID=${HOST_UID-1000}    # $ id -u $USER  # 通所のターミナルで出てきた数字を打ち込む
-        - GID=${HOST_GID-1000}    # $ id -g $USER  # 通所のターミナルで出てきた数字を打ち込む
 ...
     ports:
         - hoge:hoge # ←カブらないようにしよう。特に同じユーザーネームのやつとはかぶらないように注意
@@ -34,13 +31,14 @@ $ cd GPUDocker
  7. dockerのコンテナを立ち上げて中に入ろう
 ```shell
 $ cd /environments/gpu/
+$ docker-compose build --build-arg UID="$(id -u)" --build-arg GID="$(id -g)" --build-arg --build-arg USER_NAME={あなたのユーザー名}
 $ docker compose up -d
 $ docker compose exec {あなたのユーザー名} bash
 ```
 
  8. poetryの環境ファイルを作ろう
 ```shell
-challenger@hogehoge:~/ascender$ poetry init
+:~/ProjectCompbio$ poetry init
 
 This command will guide you through creating your pyproject.toml config.
 
@@ -86,17 +84,18 @@ build-backend = "poetry.core.masonry.api"
 
 Do you confirm generation? (yes/no) [yes] ←そのままEnter
 ```
+
  9. poetryの実行環境を作ろう
-```
-challenger@hogehoge:~/ascender$ poetry install --no-root
+```shell
+~/ProjectCompbio$ poetry install --no-root
 ```
 
  10. poetryに必要なpythonのパッケージを入れよう。たくさんあると思うが頑張って
-```
-challenger@hogehoge:~/ascender$ poetry add {必要なPythonのパッケージ名、例：numpy, pandas}
+```shell
+~/ProjectCompbio$ poetry add {必要なPythonのパッケージ名、例：numpy, pandas}
 ```
  11. poetryを実行しよう
-```
-challenger@hogehoge:~/ascender$ poetry run python3 {python3のファイル、例：train.py, test.py}
+```shell
+~/ProjectCompbio$ poetry run python3 {python3のファイル、例：train.py, test.py}
 ```
 
