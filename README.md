@@ -4,13 +4,13 @@
  - [Ascender](https://github.com/cvpaperchallenge/Ascender) ココにエラーの解決策が書いてあるかも
 
 # 使い方
- 1. GPUサーバに自分のユーザーを登録しよう
+ 1. GPUサーバにユーザーを登録しよう。{あなたのユーザー名}がこの時のユーザー名になるよ。
  2. 登録したユーザーでdockerの権限を貰おう。サーバー管理の人に聞いてね
  3. ssh でGPUサーバーにアクセスしよう
 ```shell
  $ ssh {あなたのユーザー名}@GPUのipアドレス -p ポート番号
 ```
- 4. GithubのSSH-keyを登録しよう
+ 4. GithubのSSH-keyを登録しよう[参考サイト]( https://qiita.com/shizuma/items/2b2f873a0034839e47ce)
  5. 好きな場所に、このフォルダをクローンして、そこに移動しよう
 ```shell
 $ git clone git@...
