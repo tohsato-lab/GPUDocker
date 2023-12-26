@@ -11,7 +11,7 @@
  $ ssh {あなたのユーザー名}@GPUのipアドレス -p ポート番号
 ```
  4. GithubのSSH-keyを登録しよう
- 5. 好きな場所このフォルダをクローンして、フォルダを移動しよう
+ 5. 好きな場所に、このフォルダをクローンして、そこに移動しよう
 ```shell
 $ git clone git@...
 $ cd GPUDocker
@@ -74,7 +74,7 @@ authors = ["compbio"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.9" # ここはあなたが指定したバージョンになる
 
 
 [build-system]
