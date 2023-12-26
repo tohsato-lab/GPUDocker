@@ -31,7 +31,7 @@ $ cd GPUDocker
  7. dockerのコンテナを立ち上げて中に入ろう
 ```shell
 $ cd /environments/gpu/
-$ docker-compose build --build-arg UID="$(id -u)" --build-arg GID="$(id -g)" --build-arg --build-arg USER_NAME={あなたのユーザー名}
+$ docker compose build --build-arg USER_NAME={あなたのユーザー名} --build-arg UID="$(id -u)" --build-arg GID="$(id -g)"
 $ docker compose up -d
 $ docker compose exec {あなたのユーザー名} bash
 ```
