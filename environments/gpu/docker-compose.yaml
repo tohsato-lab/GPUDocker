@@ -1,16 +1,16 @@
 version: "3.8"
 
 services:
-  {あなたのユーザー名}: # ←ここを自分のユーザーネームにしよう
+  {あなたのユーザー名}: # ←ここをあなたのユーザー名にしよう
     runtime: nvidia
-    container_name: {あなたのユーザー名}
+    container_name: {あなたのユーザー名} # ←ここをあなたのユーザー名にしよう
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
     build:
       args:
         - BASE_IMAGE=nvidia/cuda:11.0.3-devel-ubuntu20.04
         - PYTHON_VERSION=3.9     # python3のバージョンは個々で指定しましょう。3.9以降だとビルドできなさそう
-        - USER_NAME
+        - USER_NAME=user
         - GROPU_NAME=compbio
         - UID=${HOST_UID-1000}    # $ id -u $USER  # 通所のターミナルで出てきた数字を打ち込む
         - GID=${HOST_GID-1000}    # $ id -g $USER  # 通所のターミナルで出てきた数字を打ち込む
@@ -18,7 +18,7 @@ services:
       dockerfile: environments/Dockerfile
     tty: true
     volumes:
-        - ../../:/home/challenger/ascender
+        - ../../:/home/${USER_NAME}/ProjectCompbio
     ports:
         - hoge:hoge # ←個々を株いらないようにしよう。特に同じユーザーネームのやつとはかぶらないように注意
     shm_size: '32gb'
