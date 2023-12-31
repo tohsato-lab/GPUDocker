@@ -25,12 +25,21 @@ RUN apt update && apt install --no-install-recommends -y \
     
 # Following is needed to swtich default python3 version
 # For detail, please check following link https://unix.stackexchange.com/questions/410579/change-the-python3-default-version-in-ubuntu
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1 \
-    && update-alternatives --set python3 /usr/bin/python${PYTHON_VERSION} \
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1 
+RUN update-alternatives --set python3 /usr/bin/python${PYTHON_VERSION}
     # `requests` needs to be upgraded to avoid RequestsDependencyWarning
     # ref: https://stackoverflow.com/questions/56155627/requestsdependencywarning-urllib3-1-25-2-or-chardet-3-0-4-doesnt-match-a-s
-    && python3 -m pip install --upgrade pip setuptools requests \
-    && python3 -m pip install poetry
+# if python version ">=3.10", package "distutils" is not deprecated.
+# RUN python3 -m pip install setuptools
+# RUN python3 -m pip install requests
+# RUN python3 -m pip install distutils
+# RUN python3 -m pip install --upgrade pip setuptools requests
+# RUN python3 -m pip install --user pipx
+# RUN python3 -m pipx install poetry
+
+# RUN curl -sSL https://install.python-poetry.org | python3 -
+
+RUN apt update && apt install bash -y
 
 # Add user. Without this, following process is executed as admin. 
 RUN groupadd -g ${GID} ${GROUP_NAME} \
@@ -38,9 +47,9 @@ RUN groupadd -g ${GID} ${GROUP_NAME} \
 
 USER ${USER_NAME}
 WORKDIR ${APPLICATION_DIRECTORY}
+RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN export PATH="/home/${USER_NAME}/.local/bin:$PATH" && poetry completions bash >> ~/.bashrc
+RUN echo 'export PATH="/home/'${USER_NAME}'/.local/bin:$PATH"' >> ~/.bashrc
+RUN bash -c "source ~/.bashrc"
 
-# If ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true", install Python package by Poetry and move .venv under ${HOME}.
-# This process is for CI (GitHub Actions). To prevent overwrite by volume of docker compose, .venv is moved under ${HOME}.
-# COPY --chown=${UID}:${GID} pyproject.toml poetry.lock poetry.toml .
-# RUN test ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true" && poetry install || echo "skip to run poetry install."
-# RUN test ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true" && mv ${APPLICATION_DIRECTORY}/.venv ${HOME}/.venv || echo "skip to move .venv."
+# RUN cd ~/.local/bin && poetry config virtualenvs.in-project true
