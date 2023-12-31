@@ -31,6 +31,7 @@ $ cd GPUDocker
  7. dockerのイメージの作成とコンテナを立ち上げて中に入ろう
 ```shell
 $ cd ./environments/gpu/
+$ docker compose build --build-arg PYTHON_VERSION="3.10" --build-arg UID="$(id -u)" --build-arg GID="$(id -g)"
 $ docker compose build --build-arg UID="$(id -u)" --build-arg GID="$(id -g)"
 $ docker compose up -d
 $ docker compose exec {あなたのユーザー名} bash

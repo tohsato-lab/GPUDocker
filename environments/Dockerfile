@@ -48,8 +48,14 @@ RUN groupadd -g ${GID} ${GROUP_NAME} \
 USER ${USER_NAME}
 WORKDIR ${APPLICATION_DIRECTORY}
 RUN curl -sSL https://install.python-poetry.org | python3 -
-RUN export PATH="/home/${USER_NAME}/.local/bin:$PATH" && poetry completions bash >> ~/.bashrc
+RUN export PATH="/home/${USER_NAME}/.local/bin:$PATH" && poetry completions bash >> ~/.bashrc \
+    && poetry config virtualenvs.in-project true \
+    && poetry config virtualenvs.path .
+
 RUN echo 'export PATH="/home/'${USER_NAME}'/.local/bin:$PATH"' >> ~/.bashrc
 RUN bash -c "source ~/.bashrc"
+# RUN poetry config virtualenvs.create false --local
+# RUN bash -c "poetry config virtualenvs.in-project true"
 
-# RUN cd ~/.local/bin && poetry config virtualenvs.in-project true
+
+
