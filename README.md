@@ -28,11 +28,10 @@ $ cd GPUDocker
         - hoge:hoge # ←カブらないようにしよう。特に同じユーザーネームのやつとはかぶらないように注意
  
 ```
- 7. dockerのイメージの作成とコンテナを立ち上げて中に入ろう
+ 7. Python3のバージョンを指定して、dockerのイメージの作成とコンテナを立ち上げて中に入ろう(デフォルトだと3.9)
 ```shell
 $ cd ./environments/gpu/
 $ docker compose build --build-arg PYTHON_VERSION="3.10" --build-arg UID="$(id -u)" --build-arg GID="$(id -g)"
-$ docker compose build --build-arg UID="$(id -u)" --build-arg GID="$(id -g)"
 $ docker compose up -d
 $ docker compose exec {あなたのユーザー名} bash
 ```
