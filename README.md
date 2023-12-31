@@ -4,43 +4,41 @@
  - [Ascender](https://github.com/cvpaperchallenge/Ascender) ココにエラーの解決策が書いてあるかも
 
 # 使い方
- 1. GPUサーバに自分のユーザーを登録しよう
+ 1. GPUサーバにユーザーを登録しよう。{あなたのユーザー名}がこの時のユーザー名になるよ。
  2. 登録したユーザーでdockerの権限を貰おう。サーバー管理の人に聞いてね
  3. ssh でGPUサーバーにアクセスしよう
 ```shell
  $ ssh {あなたのユーザー名}@GPUのipアドレス -p ポート番号
 ```
- 4. GithubのSSH-keyを登録しよう
- 5. 好きな場所このフォルダをクローンして、フォルダを移動しよう
+ 4. GithubのSSH-keyを登録しよう[参考サイト]( https://qiita.com/shizuma/items/2b2f873a0034839e47ce)
+ 5. 好きな場所に、このフォルダをクローンして、そこに移動しよう
 ```shell
 $ git clone git@...
 $ cd GPUDocker
 ```
  6. dockerファイルを編集しよう
- + GPUDocker/environments/gpu/docker-compose.yaml の5箇所を編集しよう
+ + GPUDocker/environments/gpu/docker-compose.yaml の3箇所を編集しよう
 ```
  services:
-  YourUserName: # ←ここを{あなたのユーザー名}にしよう
+  {あなたのユーザー名}: # ←ここを{あなたのユーザー名}にしよう
     runtime: nvidia
-    container_name: contanor　# ←ここを{あなたのユーザー名}にしよう
-...
-        - UID=${HOST_UID-1000}    # $ id -u $USER  # 通所のターミナルで出てきた数字を打ち込む
-        - GID=${HOST_GID-1000}    # $ id -g $USER  # 通所のターミナルで出てきた数字を打ち込む
+    container_name:  {あなたのユーザー名}　# ←ここを{あなたのユーザー名}にしよう
 ...
     ports:
         - hoge:hoge # ←カブらないようにしよう。特に同じユーザーネームのやつとはかぶらないように注意
  
 ```
- 7. dockerのコンテナを立ち上げて中に入ろう
+ 7. Python3のバージョンを指定して、dockerのイメージの作成とコンテナを立ち上げて中に入ろう(デフォルトだと3.9)
 ```shell
-$ cd /environments/gpu/
+$ cd ./environments/gpu/
+$ docker compose build --build-arg PYTHON_VERSION="3.10" --build-arg UID="$(id -u)" --build-arg GID="$(id -g)"
 $ docker compose up -d
 $ docker compose exec {あなたのユーザー名} bash
 ```
 
  8. poetryの環境ファイルを作ろう
 ```shell
-challenger@hogehoge:~/ascender$ poetry init
+:~/ProjectCompbio$ poetry init
 
 This command will guide you through creating your pyproject.toml config.
 
@@ -76,7 +74,7 @@ authors = ["compbio"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.9" # ここはあなたが指定したバージョンになる
 
 
 [build-system]
@@ -86,17 +84,18 @@ build-backend = "poetry.core.masonry.api"
 
 Do you confirm generation? (yes/no) [yes] ←そのままEnter
 ```
+
  9. poetryの実行環境を作ろう
-```
-challenger@hogehoge:~/ascender$ poetry install --no-root
+```shell
+~/ProjectCompbio$ poetry install --no-root
 ```
 
  10. poetryに必要なpythonのパッケージを入れよう。たくさんあると思うが頑張って
-```
-challenger@hogehoge:~/ascender$ poetry add {必要なPythonのパッケージ名、例：numpy, pandas}
+```shell
+~/ProjectCompbio$ poetry add {必要なPythonのパッケージ名、例：numpy, pandas}
 ```
  11. poetryを実行しよう
-```
-challenger@hogehoge:~/ascender$ poetry run python3 {python3のファイル、例：train.py, test.py}
+```shell
+~/ProjectCompbio$ poetry run python3 {python3のファイル、例：train.py, test.py}
 ```
 

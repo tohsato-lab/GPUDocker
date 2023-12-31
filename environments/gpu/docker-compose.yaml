@@ -1,22 +1,22 @@
 version: "3.8"
 
 services:
-  {ココをユーザー名にしよう}: # ←ここを自分のユーザーネームにしよう
+  {ココをユーザー名にしよう}: # ←ここを{自分のユーザー名}にしよう
     runtime: nvidia
-    container_name: contanor
+    container_name: contanor # ←ここを{自分のユーザー名}にしよう
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
     build:
       args:
         - BASE_IMAGE=nvidia/cuda:11.0.3-devel-ubuntu20.04
-        - PYTHON_VERSION=3.9     # python3のバージョンは個々で指定しましょう。3.9以降だとビルドできなさそう
+        - PYTHON_VERSION=3.9     # python3のバージョンを指定しよう。
         - UID=${HOST_UID-1000}    # $ id -u $USER  # 通所のターミナルで出てきた数字を打ち込む
         - GID=${HOST_GID-1000}    # $ id -g $USER  # 通所のターミナルで出てきた数字を打ち込む
       context: ../../
       dockerfile: environments/Dockerfile
     tty: true
     volumes:
-        - ../../:/home/challenger/ascender
+        - ../../:/home/user/ProjectCompbio
     ports:
-        - hoge:hoge # ←個々を株いらないようにしよう。特に同じユーザーネームのやつとはかぶらないように注意
+        - hoge:hoge # ←個々を被らないようにしよう。特に同じユーザーネームのやつとはかぶらないように注意
     shm_size: '32gb'
